@@ -1,4 +1,4 @@
-tempfile=open('a_example.txt','r')
+tempfile=open('b_lovely_landscapes.txt','r')
 
 a=tempfile.read()
 print(a)
@@ -103,7 +103,6 @@ def findver():
     k.append(z)
     k.append(y)
     return k
-    return 
 for i in range(int(len(posv)/2)):
     slidenumber.append(findver())
 print(slidenumber)
@@ -122,12 +121,92 @@ for i in range(0,int(len(posv)/2)):
     #print(b)
     slidetag.append(Union(tag[a],tag[b]))
 print(slidetag)
-def countd(i,j):
+def countd1(i,j):
     counter=0
     a=slidetag[i]
     b=slidetag[j]
     for i in a:
         if i not in b:
-            
             counter=counter+1
     return counter
+def counts(i,j):
+    counter=0
+    a=slidetag[i]
+    b=slidetag[j]
+    for i in a:
+        if i in b:
+            counter=counter+1
+    return counter
+def countd2(i,j):
+    counter=0
+    a=slidetag[i]
+    b=slidetag[j]
+    for i in b:
+        if i not in a:
+            counter=counter+1
+    return counter
+scored1 = [[0 for col in range(len(slidetag))] for row in range(len(slidetag))]
+scores= [[0 for col in range(len(slidetag))] for row in range(len(slidetag))]
+scored2 = [[0 for col in range(len(slidetag))] for row in range(len(slidetag))]
+for i in range(len(slidetag)):
+    for j in range(len(slidetag)):
+        scored1[i][j]=countd1(i,j)
+        scores[i][j]=counts(i,j)
+        scored2[i][j]=countd2(i,j)
+mini = [[0 for col in range(len(slidetag))] for row in range(len(slidetag))]    
+print(scored1)
+print(scores)
+print(scored2)
+
+for i in range(len(slidetag)):
+    for j in range(len(slidetag)):
+        mini[i][j]=min(scored1[i][j],scores[i][j],scored2[i][j])
+print(mini)
+slide=slidenumber.copy()
+order=[]
+def findmax():
+    max=0
+    h=0
+    v=0
+    for i in range(len(mini)):
+        for j in range(len(mini)):
+           # print(mini[i][j])
+            if(mini[i][j]>max):
+                max=mini[i][j]
+                h,v=i,j
+    print(h)
+    print(v)
+    for k in range(len(slidenumber)):
+        mini[h][k]=0
+        mini[k][h]=0
+    order.append(slidenumber[h])
+    order.append(slidenumber[v])
+    return v
+l=findmax()
+#print(order)
+#print(mini)
+def checkzero():
+    for i in range(len(mini)):
+        for j in range(len(mini)):
+            #print(mini[i][j])
+            if(mini[i][j]!=0):
+                return 1
+    return 0
+def findm(g):
+    max=0
+    h=0
+    v=0
+    for i in range(len(mini)):
+           # print(mini[i][j])
+            if(mini[g][j]>max):
+                max=mini[g][j]
+                v=j
+    for k in range(len(slidenumber)):
+        mini[g][k]=0
+        mini[k][g]=0
+    order.append(slidenumber[v])
+    return v
+while(checkzero()==1):
+    to=findm(l)
+    l=to
+print(order)
