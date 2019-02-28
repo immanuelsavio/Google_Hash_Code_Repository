@@ -54,3 +54,80 @@ def bubbleSort(arr):
                 arr[j], arr[j+1], posv[j],posv[j+1] = arr[j+1], arr[j],posv[j+1],pos[j]
 bubbleSort(verticalsize)
 #print(posv)
+disimilarvertical=[]
+for i in range(len(posv)):
+    p=[]
+    for j in range(len(posv)):
+        p.append(0)
+    disimilarvertical.append(p)
+print(disimilarvertical)
+def countv(i,j):
+    counter=0
+    a=tag[i]
+    b=tag[j]
+    for i in a:
+        if i not in b:
+            
+            counter=counter+1
+    for i in b:
+        if i not in a:
+            counter=counter+1
+    return counter
+    
+for i in range(len(posv)):
+    for j in range(len(posv)):
+        disimilarvertical[i][j]=countv(posv[i],posv[j])
+print(disimilarvertical) 
+dis=disimilarvertical
+slidenumber=[]
+for i in posh:
+    slidenumber.append(i)
+pusv=posv.copy()
+def findver():
+    max=0
+    h=0
+    v=0
+    for i in range(len(dis)):
+        for j in range(len(dis)):
+            if(dis[i][j]>max):
+                h,v=i,j
+    tuv=[r.pop(j) for r in dis]
+    if(i>j):
+        z=pusv.pop(i)
+        y=pusv.pop(j)
+    else:
+        z=pusv.pop(i)
+        y=pusv.pop(j-1)
+    dis.pop(i)
+    k=[]
+    k.append(z)
+    k.append(y)
+    return k
+    return 
+for i in range(int(len(posv)/2)):
+    slidenumber.append(findver())
+print(slidenumber)
+slidetag=[]
+for i in posh:
+    slidetag.append(tag[i])
+#print(slidetag)
+print(posv)
+def Union(a,b):
+    final=list(set(a)|set(b))
+    return final
+for i in range(0,int(len(posv)/2)):
+    a=slidenumber[i+len(posh)][0]
+    b=slidenumber[i+len(posh)][1]
+   # print(a)
+    #print(b)
+    slidetag.append(Union(tag[a],tag[b]))
+print(slidetag)
+def countd(i,j):
+    counter=0
+    a=slidetag[i]
+    b=slidetag[j]
+    for i in a:
+        if i not in b:
+            
+            counter=counter+1
+    return counter
